@@ -1,6 +1,5 @@
-# ZagrOS
+# zagros
 an operating system.
 
-# build
-
-# run
+# build/run
+./p

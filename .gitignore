@@ -1,3 +1,6 @@
 build/*
+garbage/*
 breakpoints.json
+src/breakpoints.json
 docs/.$how_computer_load_kernel.drawio.bkp
+docs/.$how_computer_loads_kernel.drawio.bkp

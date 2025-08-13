@@ -1,0 +1,115 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/28.0.6 Chrome/138.0.7204.100 Electron/37.2.3 Safari/537.36" version="28.0.6">
+  <diagram name="Page-1" id="ftl8nT4EawvvsuoXcHAU">
+    <mxGraphModel dx="1663" dy="891" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="fnOl9dyTfOavL_5eINVU-1" value="" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="79" y="40" width="361" height="280" as="geometry" />
+        </mxCell>
+        <mxCell id="fnOl9dyTfOavL_5eINVU-2" value="&lt;font style=&quot;font-size: 10px;&quot; face=&quot;ubuntu&quot;&gt;BIOS&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFCCFF;" parent="1" vertex="1">
+          <mxGeometry x="89" y="50" width="80" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Gdn8Q-cJP8ju7WS-vJdH-10" value="" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="80" y="360" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Gdn8Q-cJP8ju7WS-vJdH-11" value="" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="120" y="360" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Gdn8Q-cJP8ju7WS-vJdH-12" value="" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="160" y="360" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Gdn8Q-cJP8ju7WS-vJdH-13" value="" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="200" y="360" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Gdn8Q-cJP8ju7WS-vJdH-14" value="" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="240" y="360" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Gdn8Q-cJP8ju7WS-vJdH-15" value="" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="280" y="360" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Gdn8Q-cJP8ju7WS-vJdH-16" value="" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="320" y="360" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Gdn8Q-cJP8ju7WS-vJdH-17" value="" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="360" y="360" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Gdn8Q-cJP8ju7WS-vJdH-18" value="" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="400" y="360" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Gdn8Q-cJP8ju7WS-vJdH-21" value="" style="shape=curlyBracket;whiteSpace=wrap;html=1;rounded=1;labelPosition=left;verticalLabelPosition=middle;align=right;verticalAlign=middle;rotation=-90;" parent="1" vertex="1">
+          <mxGeometry x="130" y="370" width="20" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="Gdn8Q-cJP8ju7WS-vJdH-22" value="" style="shape=curlyBracket;whiteSpace=wrap;html=1;rounded=1;labelPosition=left;verticalLabelPosition=middle;align=right;verticalAlign=middle;rotation=-90;" parent="1" vertex="1">
+          <mxGeometry x="250" y="370" width="20" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="Gdn8Q-cJP8ju7WS-vJdH-23" value="" style="shape=curlyBracket;whiteSpace=wrap;html=1;rounded=1;labelPosition=left;verticalLabelPosition=middle;align=right;verticalAlign=middle;rotation=-90;" parent="1" vertex="1">
+          <mxGeometry x="370" y="370" width="20" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="Gdn8Q-cJP8ju7WS-vJdH-24" value="&lt;font face=&quot;ubuntu&quot; style=&quot;font-size: 14px;&quot;&gt;RAM:&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="10" y="365" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Gdn8Q-cJP8ju7WS-vJdH-25" value="&lt;font face=&quot;ubuntu&quot; style=&quot;font-size: 14px;&quot;&gt;MB:&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="10" y="170" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Gdn8Q-cJP8ju7WS-vJdH-26" value="" style="group" parent="1" vertex="1" connectable="0">
+          <mxGeometry x="244" y="171" width="170" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="fnOl9dyTfOavL_5eINVU-11" value="" style="rounded=1;whiteSpace=wrap;html=1;" parent="Gdn8Q-cJP8ju7WS-vJdH-26" vertex="1">
+          <mxGeometry y="20" width="170" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="Gdn8Q-cJP8ju7WS-vJdH-1" value="&lt;p style=&quot;white-space-collapse: preserve;&quot; dir=&quot;auto&quot;&gt;&lt;font face=&quot;ubuntu&quot; style=&quot;font-size: 9px;&quot;&gt;EAX&lt;/font&gt;&lt;/p&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="Gdn8Q-cJP8ju7WS-vJdH-26" vertex="1">
+          <mxGeometry x="5" y="35" width="30" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="Gdn8Q-cJP8ju7WS-vJdH-2" value="&lt;p style=&quot;white-space-collapse: preserve;&quot; dir=&quot;auto&quot;&gt;&lt;font face=&quot;ubuntu&quot; style=&quot;font-size: 9px;&quot;&gt;EBX&lt;/font&gt;&lt;/p&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="Gdn8Q-cJP8ju7WS-vJdH-26" vertex="1">
+          <mxGeometry x="5" y="55" width="30" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="Gdn8Q-cJP8ju7WS-vJdH-3" value="&lt;p style=&quot;white-space-collapse: preserve;&quot; dir=&quot;auto&quot;&gt;&lt;font face=&quot;ubuntu&quot; style=&quot;font-size: 9px;&quot;&gt;EIP&lt;/font&gt;&lt;/p&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFF66;" parent="Gdn8Q-cJP8ju7WS-vJdH-26" vertex="1">
+          <mxGeometry x="5" y="95" width="30" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="Gdn8Q-cJP8ju7WS-vJdH-4" value="&lt;p style=&quot;white-space-collapse: preserve;&quot; dir=&quot;auto&quot;&gt;&lt;font face=&quot;ubuntu&quot; style=&quot;font-size: 9px;&quot;&gt;ESP&lt;/font&gt;&lt;/p&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#B3FF66;" parent="Gdn8Q-cJP8ju7WS-vJdH-26" vertex="1">
+          <mxGeometry x="5" y="75" width="30" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="Gdn8Q-cJP8ju7WS-vJdH-5" value="&lt;font style=&quot;font-size: 10px;&quot; face=&quot;ubuntu&quot;&gt;CPU&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;strokeColor=#000000;" parent="Gdn8Q-cJP8ju7WS-vJdH-26" vertex="1">
+          <mxGeometry x="65" width="40" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="Gdn8Q-cJP8ju7WS-vJdH-27" value="" style="group" parent="1" vertex="1" connectable="0">
+          <mxGeometry x="243" y="50" width="170" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="fnOl9dyTfOavL_5eINVU-10" value="" style="rounded=1;whiteSpace=wrap;html=1;" parent="Gdn8Q-cJP8ju7WS-vJdH-27" vertex="1">
+          <mxGeometry y="20" width="170" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="fnOl9dyTfOavL_5eINVU-12" value="&lt;font style=&quot;font-size: 10px;&quot; face=&quot;ubuntu&quot;&gt;HDD&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;strokeColor=#000000;" parent="Gdn8Q-cJP8ju7WS-vJdH-27" vertex="1">
+          <mxGeometry x="65" width="40" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="Gdn8Q-cJP8ju7WS-vJdH-7" value="&lt;p style=&quot;white-space-collapse: preserve;&quot; dir=&quot;auto&quot;&gt;&lt;font face=&quot;ubuntu&quot; style=&quot;font-size: 9px;&quot;&gt;MBR&lt;/font&gt;&lt;/p&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="Gdn8Q-cJP8ju7WS-vJdH-27" vertex="1">
+          <mxGeometry x="5" y="30" width="30" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="Gdn8Q-cJP8ju7WS-vJdH-8" value="&lt;p style=&quot;white-space-collapse: preserve;&quot; dir=&quot;auto&quot;&gt;&lt;font face=&quot;ubuntu&quot; style=&quot;font-size: 9px;&quot;&gt;Partition1&lt;/font&gt;&lt;/p&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="Gdn8Q-cJP8ju7WS-vJdH-27" vertex="1">
+          <mxGeometry x="65" y="30" width="95" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="Gdn8Q-cJP8ju7WS-vJdH-9" value="&lt;p style=&quot;white-space-collapse: preserve;&quot; dir=&quot;auto&quot;&gt;&lt;span style=&quot;font-family: ubuntu; font-size: 9px;&quot;&gt;Partition2&lt;/span&gt;&lt;/p&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="Gdn8Q-cJP8ju7WS-vJdH-27" vertex="1">
+          <mxGeometry x="65" y="50" width="95" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="Gdn8Q-cJP8ju7WS-vJdH-28" value="&lt;font face=&quot;ubuntu&quot; style=&quot;font-size: 14px;&quot;&gt;BootLoader(grub)&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="186.5" y="446" width="140.5" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Gdn8Q-cJP8ju7WS-vJdH-29" value="&lt;font face=&quot;ubuntu&quot; style=&quot;font-size: 14px;&quot;&gt;kernel.bin&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="337" y="446" width="90" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Gdn8Q-cJP8ju7WS-vJdH-36" value="&lt;font face=&quot;ubuntu&quot; style=&quot;font-size: 14px;&quot;&gt;Bios FW&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="110" y="446" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Gdn8Q-cJP8ju7WS-vJdH-32" value="&lt;font face=&quot;ubuntu&quot;&gt;NOTES&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="520" width="61.2987012987013" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Gdn8Q-cJP8ju7WS-vJdH-35" value="&lt;div&gt;Items in your computer:&lt;/div&gt;&lt;div&gt;&lt;ul&gt;&lt;li&gt;MotherBoard (MB)&lt;/li&gt;&lt;ul&gt;&lt;li&gt;A HardDrive attached to it. (HDD)&lt;/li&gt;&lt;li&gt;CPU (has several registers)&lt;/li&gt;&lt;ul&gt;&lt;li&gt;General purpose: EAX, EBX, ECX, EDX&lt;/li&gt;&lt;li&gt;Instruction Pointer: EIP&lt;/li&gt;&lt;li&gt;Stack Pointer: ESP&lt;/li&gt;&lt;li&gt;Base Pointer: EBP&lt;/li&gt;&lt;li&gt;Status Register: EFLAGS&lt;/li&gt;&lt;li&gt;Control Registers: CR0, CR2, CR3, CR4, CR8&lt;/li&gt;&lt;/ul&gt;&lt;/ul&gt;&lt;/ul&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;What happens when you start your computer?&lt;br&gt;&lt;ol&gt;&lt;li&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;MB copies data from BIOS and load it into RAM. (Bios Firmware)&lt;/span&gt;&lt;/li&gt;&lt;li&gt;Then EIP will point to the beginning of RAM (which contains Bios FW)&lt;/li&gt;&lt;ol&gt;&lt;li&gt;CPU will read and execute the instruction at that position.&lt;/li&gt;&lt;/ol&gt;&lt;li&gt;FW then tell cpu: &quot;Hello CPU!, please talk to the HDD&quot;&lt;/li&gt;&lt;li&gt;CPU read raw data from HDD. (the first 2 MB which called Boot Sector or Master Boot Record, MBR)&lt;/li&gt;&lt;ol&gt;&lt;li&gt;There&#39;s no concept of partition table or file system at this level.&lt;/li&gt;&lt;/ol&gt;&lt;li&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;BootLoader will load from MBR into the RAM.&lt;/span&gt;&lt;/li&gt;&lt;ol&gt;&lt;li&gt;EIP points to the memory address of BootLoader in RAM.&lt;/li&gt;&lt;li&gt;CPU starts executing instructions.&lt;/li&gt;&lt;/ol&gt;&lt;li&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;BootLoaders knows about partition tables and file systems.&lt;/span&gt;&lt;/li&gt;&lt;ol&gt;&lt;li&gt;So it can deal with Directories and Files.&lt;/li&gt;&lt;/ol&gt;&lt;li&gt;BootLoader loads: &lt;b&gt;/boot/grub/grub.cfg&lt;/b&gt;&lt;/li&gt;&lt;ol&gt;&lt;li&gt;This file contains some menu entries for each OS on your HDD.&lt;/li&gt;&lt;/ol&gt;&lt;li&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;BootLoader prints all menu entries in grub.cfg on the screen.&amp;nbsp;&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;User can use arrow-keys on his keyboard to select one of the OSs.&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;When you select an OS, it will load it&#39;s appropriate bin related to that OS. (&lt;b&gt;/boot/kernel.bin&lt;/b&gt;)&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;For linux, it&#39;s: &lt;b&gt;kernel.bin&lt;/b&gt;.&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;BootLoader, loads kernel.bin into the RAM.&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;EIP will update to point to the beginning of the kernel.bin.&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;CPU starts executing instructions from the entry point of kernel.bin.&lt;/span&gt;&lt;/li&gt;&lt;li&gt;This is exactly where our code will start to execute.&lt;/li&gt;&lt;li&gt;&lt;i&gt;&lt;font style=&quot;color: rgb(164, 84, 0);&quot;&gt;When you start your computer, CPU starts in 32-bit compatibility mode.&lt;/font&gt;&lt;/i&gt;&lt;/li&gt;&lt;ol&gt;&lt;li&gt;So everything in our kernel is in 32-bit mode.&lt;/li&gt;&lt;/ol&gt;&lt;/ol&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;" parent="1" vertex="1">
+          <mxGeometry x="520" y="40" width="580" height="620" as="geometry" />
+        </mxCell>
+        <mxCell id="0AuABxBGHE9JzeNkAYb6-1" value="&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;Challanges:&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;ul&gt;&lt;li&gt;When Bootloader loads the kernel into the ram, it doesn&#39;t update ESP.&lt;/li&gt;&lt;li&gt;C/C++ programs expect the ESP always be set before our application starts to run.&lt;/li&gt;&lt;li&gt;To set ESP manually, we need to do it manually.&amp;nbsp;&lt;/li&gt;&lt;ul&gt;&lt;li&gt;We&#39;ll create an assembly file called: loader.s for this purpose.&lt;/li&gt;&lt;ul&gt;&lt;li&gt;loader.s will jump to our kernel.c at the end.&lt;/li&gt;&lt;/ul&gt;&lt;/ul&gt;&lt;li&gt;loader.s will compile with: &lt;i&gt;as&lt;/i&gt;&amp;nbsp; --&amp;gt; produce: loader.o&lt;/li&gt;&lt;li&gt;kernel.c will compile with: &lt;i&gt;gcc&lt;/i&gt; --&amp;gt; produce: kernel.o&lt;/li&gt;&lt;li&gt;&lt;i&gt;ld&lt;/i&gt; will link loader.o and kernel.o into &lt;b&gt;kernel.bin&lt;/b&gt;&lt;/li&gt;&lt;li&gt;We then put this kernel.bin into /boot and write an entry in grub.cfg for it.&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;" parent="1" vertex="1">
+          <mxGeometry x="10" y="480" width="500" height="180" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
