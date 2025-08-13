@@ -12,9 +12,17 @@ void print(char* text, unsigned int number)
 {
   int i = 0;
   // 0xb8000 --> beginning of video memory address. everything you write here, you'll see it on the screen by the graphics card.
-  // +---------+---------+---------+----------+---------+
-  // |  COLOR  |  CHAR   |  COLOR  |  COLOR   |  CHAR   |
-  // +---------+---------+---------+----------+---------+
+  // +---------+---------+---------+----------+---------+----------+
+  // |  COLOR  |  ASCII  |  COLOR  |  ASCII   |  COLOR  |  ASCII   |
+  // +---------+---------+---------+----------+---------+----------+
+  // ASCII:             1 byte.
+  // COLOR (attribute): 1 byte. highest 3 bits: bg, lowest 4 bits: fg
+  //                            The interpretation of bit #7 depends on how you (or the BIOS) configured the hardware
+  //                            Example: 0x00 --> black-on-black,
+  //                                     0x07 --> lightgrey-on-black (DOS default),
+  //                                     0x1F --> white-on-blue (Win9x's blue-screen-of-death),
+  //                                     0x2a is for green-monochrome nostalgics
+
   // we chose short, since it's 2 byte. first byte is for bg/fg and second one is for real data.
   unsigned short* videoMemory = (unsigned short*)0xb8000;
 
