@@ -19,6 +19,17 @@
 #   find/replace:
 #     project: ambr <src> <dst> <path>
 #     current buffer: :%s/akoman/zagros/g
+
+assembly () {
+    as --32 -o $2 $1
+}
+
+compile () {
+    cc -Wall -Wextra -pedantic -std=c99 \
+      -m32 -nostdlib -fno-builtin -fno-exceptions -fno-leading-underscore \
+      -c $1 -o $2
+}
+
 commands=("build(release)" "build(debug)" "build(test)"
   "run(qemu)" "run(qemu - logs)" "run(bochs)" "run(virtualbox)"
   "clean" "debug"
@@ -29,18 +40,20 @@ selected=$(printf '%s\n' "${commands[@]}" | fzf --header="project:")
 case $selected in
   "build(release)")
     echo ">>> creating build/ directory"
-    mkdir -p build
+    mkdir -p build/obj
 
     echo ">>> compiling .s files"
-    as --32 -o build/loader.o src/loader.s
+    assembly "src/loader.s" "build/obj/loader.o"
 
     # -lGL -ldl -O3
     echo ">>> compiling .c files"
-    cc -Wall -Wextra -pedantic -std=c99 -m32 -nostdlib -fno-builtin -fno-exceptions -fno-leading-underscore -o build/kernel.o -c src/kernel.c
+    compile "src/kernel.c" "build/obj/kernel.o"
+    compile "src/util/strings.c" "build/obj/strings.o"
+    compile "src/util/video_mmio.c" "build/obj/video_mmio.o"
+    compile "src/util/globals.c" "build/obj/globals.o"
 
     echo ">>> linking .o files into .bin"
-    #ld -T src/linker.ld -melf_i386 build/loader.o -o build/zagros.bin
-    ld -T src/linker.ld -melf_i386 build/kernel.o build/loader.o -o build/zagros.bin
+    ld -T src/linker.ld -melf_i386 build/obj/*.o -o build/zagros.bin
 
     echo ">>> copying .bin to /boot"
     sudo cp build/zagros.bin /boot/zagros.bin
