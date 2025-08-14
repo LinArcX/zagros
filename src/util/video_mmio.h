@@ -1,6 +1,7 @@
 /**
  * @file
- * @brief global variables
+ * @brief video memory mapped io (mmio):
+ * - https://en.wikipedia.org/wiki/Memory-mapped_I/O_and_port-mapped_I/O
  */
 
 #ifndef ZAGROS_UTIL_VIDEO_MMIO_H

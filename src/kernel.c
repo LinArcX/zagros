@@ -1,10 +1,16 @@
 #include "util/globals.h"
 #include "util/video_mmio.h"
 
-// NOTES:
-//  - this is the entry point of our kernel. (comming from bootloader)
-//  - until this point, the only things in the memory are:
-//    GRUB, BIOS, the OS kernel and some memory-mapped I/O. (ex: framebuffer)
+/**
+ * @brief This is the entry point of zagros. kmain will call by bootloader.
+ * up until this point, the only things in the memory are:
+ * - BIOS,
+ * - GRUB
+ * - some memory-mapped I/O, ex: framebuffer.
+ *
+ * @param multiboot_structor 
+ * @param magic_number 
+ */
 void kmain(void* multiboot_structor, unsigned int magic_number)
 {
   const uint16_t x = 5;
