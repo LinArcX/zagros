@@ -35,7 +35,7 @@ void print(char* text, unsigned int number)
   videoMemory[i] = (videoMemory[i] & 0xFF00) | 7;
 }
 
-void kernelMain(void* multiboot_structor, unsigned int magic_number)
+void kmain(void* multiboot_structor, unsigned int magic_number)
 {
   print("Hello zagros. magic number: ", magic_number);
   while(1);

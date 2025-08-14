@@ -5,7 +5,7 @@ a simple operating system from scratch.
 - fzf
 - gcc
 - as
-- virtualbox
+- qemu(or virtualbox or bochs)
 
 # build/run
 ./p

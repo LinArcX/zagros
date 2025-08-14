@@ -18,7 +18,7 @@
 
 # .section .text: contains the executable code of the program.
 .section .text
-.extern kernelMain
+.extern kmain
 # .global making it visible to the linker and accessible to the bootloader.
 .global loader
 
@@ -33,13 +33,15 @@ loader:
   # According to the Multiboot Specification, when the bootloader transfers control to the kernel:
   #   - %eax contains the Multiboot magic number (0x2BADB002 for Multiboot 1).
   #   - %ebx contains the physical address of the Multiboot information structure, which includes details like the memory map and loaded modules.
-  # These values are pushed onto the stack as arguments to kernelMain, following the C calling convention:
-  #  kernelMain(uint32_t magic, multiboot_info_t* mb_info)
+  # These values are pushed onto the stack as arguments to kmain, following the C calling convention:
+  #  kmain(uint32_t magic, multiboot_info_t* mb_info)
+  #.code32
+  #mov %eax, 0xCAFEBABE
   push %eax
   push %ebx
-  call kernelMain
+  call kmain
 
-# kernel shouldn't stop. there's an infinite loop at the end of kernelMain.
+# kernel shouldn't stop. there's an infinite loop at the end of kmain.
 # _loop here, is just to make sure we never goes outside of infinite loop.
 _loop:
   cli
