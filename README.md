@@ -2,9 +2,9 @@
 a simple operating system from scratch.
 
 # prerequisites
+- fzf
 - gcc
 - as
-- fzf
 - virtualbox
 
 # build/run

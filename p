@@ -2,38 +2,23 @@
 #
 # to run this file: ./p
 #
-# memory debugger: valgrind
-# system call tracer: strace
-# display info about .obj files: objdump
-# static code analyzer: splint, cppcheck, frama-c
+# tools:
+#   diff: gitk, meld
+#   memory debugger: valgrind
+#   system call tracer: strace
+#   display info about .obj files: objdump
+#   static code analyzer: cppcheck, frama-c, splint 
+#   docs of c standard librariy: install man-pages-devel and man <method>
 #
-# opening/editing files: noevim
+# nvim tips:
+#   switch between source/header: F2
+#   search files: ctrl-f, alt-f
+#   search strings: ctrl-g, alt-g, /
 #   folding/unfolding: z Shift+m, z Shift+r
-#   switch between source/header: F1
-#
-# lookup refrences: neovim(lsp)
-# find/replace in single file: neovim
-# find/replace in whole project: ambr <source_text> <dest_text>
-# find files: ctrl-t | ff <file-name> | fzf | fd
-# find string/text in single file: neovim (/)
-# find string/text in whole project: ft <text> | rg <text>
-# find docs of c standard librariy: install man-pages-devel and man <method>
-#
-# debugging: gdb build/zagros_debug
-#   set breakpoint: b 1
-#   start debugging: start
-#   from this phase, for faster moving between files and methods, you can switch to single-key-mode: C-x s. and here are the commands in this mode:
-#     q - quit, exit SingleKey mode.
-#     c - continue
-#     d - down
-#     f - finish
-#     n - next
-#     r - run
-#     s - step
-#     u - up
-#     v - info locals
-#     w - where
-
+#   lsp: ,l
+#   find/replace:
+#     project: ambr <src> <dst> <path>
+#     current buffer: :%s/akoman/zagros/g
 commands=("build(release)" "build(debug)" "build(test)"
   "run" "clean" "debug"
   "splint" "valgrind"
