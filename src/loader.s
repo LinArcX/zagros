@@ -16,35 +16,36 @@
   .long FLAGS
   .long CHECKSUM
 
-.section .text # contains the executable code of the program.
-.extern kmain
-.global loader # .global making it visible to the linker and accessible to the bootloader.
-
-# the starting point of the bootloader’s code.
-loader:
-  # kernel_stack is defined later in the .bss section and represents the base (top) of the stack.
-  # This initializes the stack, which is necessary for function calls and local variables in the kernel.
-  # The stack grows downward in memory (toward lower addresses) on x86 architectures.
-  mov $kernel_stack, %esp
-
-  # Pushes the contents of the %eax and %ebx registers onto the stack.
-  # According to the Multiboot Specification, when the bootloader transfers control to the kernel:
-  #   - %eax contains the Multiboot magic number (0x2BADB002 for Multiboot 1).
-  #   - %ebx contains the physical address of the Multiboot information structure, which includes details like the memory map and loaded modules.
-  # These values are pushed onto the stack as arguments to kmain, following the C calling convention:
-  #  kmain(uint32_t magic, multiboot_info_t* mb_info)
-  #.code32
-  #mov %eax, 0xCAFEBABE
-  push %eax
-  push %ebx
-  call kmain
-
-# kernel shouldn't stop. there's an infinite loop at the end of kmain function in c.
-# this loop here is just to make sure we never goes outside of infinite loop.
-_loop:
-  cli
-  hlt
-  jmp _loop
+.section .text    # start of the text (code) section
+  .align 4        # the code must be 4 byte aligned
+  .extern kmain
+  .global loader  # .global making it visible to the linker and accessible to the bootloader.
+  
+  # the starting point of the bootloader’s code.
+  loader:
+    # kernel_stack is defined later in the .bss section and represents the base (top) of the stack.
+    # This initializes the stack, which is necessary for function calls and local variables in the kernel.
+    # The stack grows downward in memory (toward lower addresses) on x86 architectures.
+    mov $kernel_stack, %esp
+  
+    # Pushes the contents of the %eax and %ebx registers onto the stack.
+    # According to the Multiboot Specification, when the bootloader transfers control to the kernel:
+    #   - %eax contains the Multiboot magic number (0x2BADB002 for Multiboot 1).
+    #   - %ebx contains the physical address of the Multiboot information structure, which includes details like the memory map and loaded modules.
+    # These values are pushed onto the stack as arguments to kmain, following the C calling convention:
+    #  kmain(uint32_t magic, multiboot_info_t* mb_info)
+    #.code32
+    #mov %eax, 0xCAFEBABE
+    push %eax
+    push %ebx
+    call kmain
+  
+  # kernel shouldn't stop. there's an infinite loop at the end of kmain function in c.
+  # this loop here is just to make sure we never goes outside of infinite loop.
+  _loop:
+    cli
+    hlt
+    jmp _loop
 
 # the block starting symbol (.bss) is the portion of an object file that contains statically allocated variables that are declared
 # but have not been assigned a value yet. Typically only the length of the bss section, but no data, is stored in the object file.
@@ -52,17 +53,18 @@ _loop:
 # By placing variables with no value in the .bss section, instead of the .data or .rodata section which require initial value data,
 # the size of the object file is reduced.
 .section .bss
-# a           b              c <---- 2MB space ----> d                 e                               f
-# +-----------+--------------+-----------------------*-----------------+-------------------------------+
-# |  BIOS FW  |  BootLoader  |              kernel.bin                 |            User Space         |
-# +-----------+--------------+-----------------------------------------+-------------------------------+
-#                            <----  Lower address : Higher address ---->
-# NOTES:
-# - we're reserving 2MB for our kernel stack.
-# - instead of pointing ESP to "c", it's pointing to "d" thanks to 2MB reserved space for kernel stack.
-# - the stack grows towards lower addresses on the x86. (to the left on previous diagram)
-#   - so if we didn't point to "d", our kernel.bin started to access/overwrite memory in "BootLoader" or "BIOS FW" section!
-.space 2*1024*1024 # 2MB
-
-# this is point "d"
-kernel_stack:
+  .align 4        # the bss must be 4 byte aligned
+  # a           b              c <---- 2MB space ----> d                 e                               f
+  # +-----------+--------------+-----------------------*-----------------+-------------------------------+
+  # |  BIOS FW  |  BootLoader  |              kernel.bin                 |            User Space         |
+  # +-----------+--------------+-----------------------------------------+-------------------------------+
+  #                            <----  Lower address : Higher address ---->
+  # NOTES:
+  # - we're reserving 2MB for our kernel stack.
+  # - instead of pointing ESP to "c", it's pointing to "d" thanks to 2MB reserved space for kernel stack.
+  # - the stack grows towards lower addresses on the x86. (to the left on previous diagram)
+  #   - so if we didn't point to "d", our kernel.bin started to access/overwrite memory in "BootLoader" or "BIOS FW" section!
+  .space 2*1024*1024 # 2MB
+  
+  # this is point "d"
+  kernel_stack:
