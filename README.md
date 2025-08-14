@@ -6,11 +6,12 @@ a simple operating system from scratch.
 - gcc
 - as
 - qemu(or virtualbox or bochs)
+- doxygen
 
 # build/run
 ./p
 
 # todo
-- [] generate docs with doxygen.
-- [] setup frama-c and cppcheck as static analyzer.
+- [x] generate docs with doxygen.
 - [] setup a c unit-test library.
+- [] setup frama-c and cppcheck as static analyzer.

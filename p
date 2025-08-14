@@ -33,7 +33,7 @@ compile () {
 commands=("build(release)" "build(debug)" "build(test)"
   "run(qemu)" "run(qemu - logs)" "run(bochs)" "run(virtualbox)"
   "clean" "debug"
-  "splint" "valgrind"
+  "doxygen" "splint" "valgrind"
   "strings in binary" "symbols in .obj")
 selected=$(printf '%s\n' "${commands[@]}" | fzf --header="project:")
 
@@ -137,6 +137,9 @@ case $selected in
   "debug")
     echo ">>> debugging zagros_debug"
     gdb --tui build/zagros.bin
+    ;;
+  "doxygen")
+    doxygen
     ;;
   "splint")
     cppcheck --enable=all --platform=unix64 src/*.c;;

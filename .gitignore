@@ -1,6 +1,7 @@
 build/*
 garbage/*
 bochslog.txt
+docs/doxygen/*
 breakpoints.json
 src/breakpoints.json
 docs/.$how_computer_load_kernel.drawio.bkp
