@@ -74,7 +74,8 @@ case $selected in
     ;;
   "run")
     echo ">>> running zagros.iso"
-    /usr/lib/virtualbox/VirtualBoxVM --startvm zagros &
+    #/usr/lib/virtualbox/VirtualBoxVM --startvm zagros &
+    bochs -qf bochsrc.txt
     ;;
   "clean")
     echo ">>> cleaning build/ directory"
