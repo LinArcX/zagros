@@ -20,7 +20,7 @@
 #     project: ambr <src> <dst> <path>
 #     current buffer: :%s/akoman/zagros/g
 commands=("build(release)" "build(debug)" "build(test)"
-  "run(qemu)" "run(bochs)" "run(virtualbox)"
+  "run(qemu)" "run(qemu - logs)" "run(bochs)" "run(virtualbox)"
   "clean" "debug"
   "splint" "valgrind"
   "strings in binary" "symbols in .obj")
@@ -76,6 +76,10 @@ case $selected in
     cc -Wall -Wextra -pedantic -std=c99 -lGL -ldl -g -O0 test/*.c -o build/zagros_test
     ;;
   "run(qemu)")
+    echo ">>> running zagros.iso"
+    qemu-system-i386 -cdrom build/zagros.iso -hda build/zagros.img -m 512M -daemonize
+    ;;
+  "run(qemu - logs)")
     echo ">>> running zagros.iso"
     #out_asm         show generated host assembly code for each compiled TB
     #in_asm          show target assembly code for each compiled TB

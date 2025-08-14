@@ -8,9 +8,13 @@ char* numberToString(unsigned int number)
 
 // since we're in our own world, there's no printf, there's no glibc, there's no <stdio.h>
 // so we should implement our own print function.
-void print(char* text, unsigned int number)
+void print(unsigned int color, unsigned short x, unsigned short y, const char* string)
 {
-  int i = 0;
+  // colors:
+  // - 0x0F --> white on black
+  // - 0x7F --> white on grey
+  // - 0x07 --> grey on black
+  // - 0x02 --> grey on black
   // 0xb8000 --> beginning of video memory address. everything you write here, you'll see it on the screen by the graphics card.
   // +---------+---------+---------+----------+---------+----------+
   // |  COLOR  |  ASCII  |  COLOR  |  ASCII   |  COLOR  |  ASCII   |
@@ -21,22 +25,44 @@ void print(char* text, unsigned int number)
   //                            Example: 0x00 --> black-on-black,
   //                                     0x07 --> lightgrey-on-black (DOS default),
   //                                     0x1F --> white-on-blue (Win9x's blue-screen-of-death),
-  //                                     0x2a is for green-monochrome nostalgics
+  //                                     0x2a --> green-monochrome nostalgics
 
-  // we chose short, since it's 2 byte. first byte is for bg/fg and second one is for real data.
-  unsigned short* videoMemory = (unsigned short*)0xb8000;
+  volatile char* videoMemory = (volatile char*)0xB8000;
 
-  for(i = 0; text[i]!='\0'; i++) {
-    // we want to keep COLOR byte untouched, so we do: videoMemory[i] & 0xFF00
-    videoMemory[i] = (videoMemory[i] & 0xFF00) | text[i];
+  for(short i = 0; i < y; i++) {
+    for(short j = 0; j < x; j++) {
+      *videoMemory++;         // ASCII code byte: we just skip it!
+      *videoMemory++;         // Attribute byte: we just skip it!
+    }
   }
-  i++;
 
-  videoMemory[i] = (videoMemory[i] & 0xFF00) | '7';
+  while(*string != 0) {
+    *videoMemory++ = *string++;
+    *videoMemory++ = color;
+  }
 }
 
+void clearScreen(unsigned short color)
+{
+  // NOTE: screen is 80x25
+  volatile char* videoMemory = (volatile char*)0xB8000;
+ 
+  for(short i = 0; i < 80; i++) {
+    for(short j = 0; j < 25; j++) {
+      *videoMemory++;         // ASCII code byte: we just skip it!
+      *videoMemory++ = color; // attribute byte
+    }
+  }
+}
+
+// NOTES:
+//  - this is the entry point of our kernel. (comming from bootloader)
+//  - until this point, the only things in the memory are:
+//    GRUB, BIOS, the OS kernel and some memory-mapped I/O. (ex: framebuffer)
 void kmain(void* multiboot_structor, unsigned int magic_number)
 {
-  print("Hello zagros. magic number: ", magic_number);
+  clearScreen(0x7F);
+
+  print(0x07, 10, 50, "Hello zagros. magic number: 7");
   while(1);
 }
