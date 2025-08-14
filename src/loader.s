@@ -16,11 +16,9 @@
   .long FLAGS
   .long CHECKSUM
 
-# .section .text: contains the executable code of the program.
-.section .text
+.section .text # contains the executable code of the program.
 .extern kmain
-# .global making it visible to the linker and accessible to the bootloader.
-.global loader
+.global loader # .global making it visible to the linker and accessible to the bootloader.
 
 # the starting point of the bootloader’s code.
 loader:
@@ -41,8 +39,8 @@ loader:
   push %ebx
   call kmain
 
-# kernel shouldn't stop. there's an infinite loop at the end of kmain.
-# _loop here, is just to make sure we never goes outside of infinite loop.
+# kernel shouldn't stop. there's an infinite loop at the end of kmain function in c.
+# this loop here is just to make sure we never goes outside of infinite loop.
 _loop:
   cli
   hlt
@@ -54,14 +52,17 @@ _loop:
 # By placing variables with no value in the .bss section, instead of the .data or .rodata section which require initial value data,
 # the size of the object file is reduced.
 .section .bss
-#                            a    -- 2MB space -- b 
-# +-----------+--------------+--------------------*-------------------+
-# |  BIOS FW  |  BootLoader  |              kernel.bin                |     
-# +-----------+--------------+----------------------------------------+
-#
-# since stack grows to the left and we don't want our kernel.bin overwrite stack, we reserve 2MB as empty space.
-# so instead of pointing ESP to "a", now it points to b.
-# 
+# a           b              c <---- 2MB space ----> d                 e                               f
+# +-----------+--------------+-----------------------*-----------------+-------------------------------+
+# |  BIOS FW  |  BootLoader  |              kernel.bin                 |            User Space         |
+# +-----------+--------------+-----------------------------------------+-------------------------------+
+#                            <----  Lower address : Higher address ---->
+# NOTES:
+# - we're reserving 2MB for our kernel stack.
+# - instead of pointing ESP to "c", it's pointing to "d" thanks to 2MB reserved space for kernel stack.
+# - the stack grows towards lower addresses on the x86. (to the left on previous diagram)
+#   - so if we didn't point to "d", our kernel.bin started to access/overwrite memory in "BootLoader" or "BIOS FW" section!
 .space 2*1024*1024 # 2MB
 
+# this is point "d"
 kernel_stack:

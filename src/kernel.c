@@ -32,7 +32,7 @@ void print(char* text, unsigned int number)
   }
   i++;
 
-  videoMemory[i] = (videoMemory[i] & 0xFF00) | 7;
+  videoMemory[i] = (videoMemory[i] & 0xFF00) | '7';
 }
 
 void kmain(void* multiboot_structor, unsigned int magic_number)
