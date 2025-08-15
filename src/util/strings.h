@@ -8,6 +8,14 @@
 
 #include "globals.h"
 
+enum StringErrors
+{
+  STRING_IS_NULL              = -1,
+  STRING_CONTAINS_NON_DIGITS  = -2,
+  STRING_IS_FLOAT             = -3,
+  STRING_IS_HEX               = -4
+};
+
 /**
  * @brief  
  *

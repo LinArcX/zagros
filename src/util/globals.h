@@ -7,6 +7,11 @@
 #ifndef ZAGROS_UTIL_GLOBALS_H
 #define ZAGROS_UTIL_GLOBALS_H
 
+#define NULL 0
+typedef int Bool;
+#define true 1
+#define false 0
+
 typedef signed char int8_t;
 typedef unsigned char uint8_t;
 typedef signed short int int16_t;
@@ -14,7 +19,12 @@ typedef unsigned short int uint16_t;
 typedef signed int int32_t;
 typedef unsigned int uint32_t;
 
-#define NULL 0
+enum GlobalErrors
+{
+  PARAMETER_SHOULD_BE_INT     = -1,
+  PARAMETER_SHOULD_BE_HEX     = -2,
+  PARAMETER_IS_HEX     = -3,
+};
 
 /// number of screen columns
 extern uint8_t SCREEN_WIDTH;

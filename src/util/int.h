@@ -9,7 +9,7 @@
  * @param number 
  * @return length of int
  */
-uint32_t lengthInt(int number);
+int32_t lengthInt(int32_t number);
 
 /**
  * @brief 
@@ -17,21 +17,21 @@ uint32_t lengthInt(int number);
  * @param number 
  * @return absolute value of number
  */
-uint32_t abs(int32_t number);
+int32_t abs(int32_t number);
 
 /**
- * @brief accept a string and convert it to int.
+ * @brief convert a string to int.
  *
  * @param str 
  * @return int
  */
-int stringToInt(char* str);
+int32_t stringToInt(char* str);
 
 /**
- * @brief accept an hex number and convert to decimal.
+ * @brief convert an hex number to decimal.
  *
- * @param number 
- * @return int32_t
+ * @param hex number 
+ * @return decimal number
  */
 int32_t hexToDecimal(int number);
 
