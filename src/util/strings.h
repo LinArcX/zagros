@@ -9,11 +9,48 @@
 #include "globals.h"
 
 /**
- * @brief accept a number and convert it to string.
+ * @brief  
+ *
+ * @param str 
+ * @return length of string
+ */
+uint32_t lengthString(char* str);
+
+/**
+ * @brief
+ *
+ * @param beg 
+ * @param end 
+ * @param str 
+ * @return a slice of str from beg to end
+ */
+char* sliceOfString(uint16_t beg, uint16_t end, char* str);
+
+/**
+ * @brief convert an int number to string.
  *
  * @param number 
- * @return 
+ * @param str 
+ * @param length 
+ * @return
  */
-char* numberToString(uint32_t number);
+void intToString(int number, char* str, uint32_t length);
+
+/**
+ * @brief convert a float number to string.
+ *
+ * @param number 
+ * @return
+ */
+void floatToString(float number, char* str);
+
+/**
+ * @brief convert an hex number to string.
+ *
+ * @param number
+ * @param str
+ * @return
+ */
+void hexToString(int number, char* str);
 
 #endif

@@ -14,6 +14,8 @@ typedef unsigned short int uint16_t;
 typedef signed int int32_t;
 typedef unsigned int uint32_t;
 
+#define NULL 0
+
 /// number of screen columns
 extern uint8_t SCREEN_WIDTH;
 

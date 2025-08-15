@@ -3,15 +3,37 @@ a simple operating system from scratch.
 
 # prerequisites
 - fzf
-- gcc
-- as
-- qemu(or virtualbox or bochs)
 - doxygen
+- cppcheck
+- as
+- gcc
+- qemu(or virtualbox or bochs)
 
 # build/run
 ./p
 
 # todo
 - [x] generate docs with doxygen.
-- [] setup a c unit-test library.
-- [] setup frama-c and cppcheck as static analyzer.
+- [x] setup clove-unit library for unit-tests.
+- [ ] setup cppcheck as static analyzer.
+  - [ ] setup frama-c as static analyzer.
+- [ ] setup CI on github.
+  - [ ] build kernel for each commit.
+  - [ ] build and run unit-tests for each commit.
+  - [ ] run doxygen for each commit.
+- [ ] create github page and host doxygen on it.
+- [ ] implement strings utility.
+- [ ] imlement minimal c library.
+- [ ] interrupts
+- [ ] keyboard
+- [ ] mouse
+- [ ] system calls
+- [ ] graphic mode
+- [ ] create GUI toolkit
+- [ ] multi-tasking
+- [ ] hard drives
+- [ ] networking
+
+# features will not be included in zagros
+- dynamic memory management:
+  it makes software unpredictable and non deterministic.

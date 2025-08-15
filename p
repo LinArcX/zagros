@@ -30,8 +30,9 @@ compile () {
       -c $1 -o $2
 }
 
-commands=("build(release)" "build(debug)" "build(test)"
-  "run(qemu)" "run(qemu - logs)" "run(bochs)" "run(virtualbox)"
+commands=("build(release)" "build(debug)"
+  "build(tests)" "run(tests)" "debug(tests)" "clean(tests)"
+  "run(qemu)"  "run(qemu - logs)" "run(bochs)" "run(virtualbox)"
   "clean" "debug"
   "doxygen" "splint" "valgrind"
   "strings in binary" "symbols in .obj")
@@ -82,11 +83,23 @@ case $selected in
     echo ">>> building zagros_debug"
     cc -Wall -Wextra -pedantic -std=c99 -lGL -ldl -g -O0 src/*.c -o build/zagros_debug
     ;;
-   "build(test)")
-    echo ">>> creating build/ directory"
-    mkdir -p build
-    echo ">>> building zagros_test "
-    cc -Wall -Wextra -pedantic -std=c99 -lGL -ldl -g -O0 test/*.c -o build/zagros_test
+   "build(tests)")
+    echo ">>> creating unit_tests/build/ directory"
+    mkdir -p unit_tests/build
+
+    echo ">>> building zagros_test"
+    cc -Wall -Wextra -pedantic -std=c99 -g -O0 -o unit_tests/build/zagros_test unit_tests/*.c src/util/*
+    ;;
+  "run(tests)")
+    echo ">>> running zagros_test"
+    ./unit_tests/build/zagros_test
+    ;;
+  "debug(tests)")
+    gdb ./unit_tests/build/zagros_test
+    ;;
+  "clean(tests)")
+    echo ">>> cleaning unit_tests/build/ directory"
+    rm -r unit_tests/build/*
     ;;
   "run(qemu)")
     echo ">>> running zagros.iso"
