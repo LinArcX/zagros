@@ -166,5 +166,45 @@ case $selected in
   "nm")
     ls build/*.bin build/obj/* | fzf --header="nm: " | xargs nm -l -n --synthetic
     ;;
+  "readelf")
+    ;;
+  "elfedit")
+    ;;
+  "addr2line")
+    ;;
+  "size")
+    ;;
+  "strip")
+    ;;
+  "objcopy")
+    ;;
+  "ranlib")
+    ;;
+  "gcc-ar")
+    ;;
+  "gcc-nm")
+    ;;
+  "gcc-ranlib")
+    ;;
+  "gcov")
+    ;;
+  "gcov-dump")
+    ;;
+  "gcov-tool")
+    ;;
+  "gprof")
+    ;;
+  "gprofng")
+    ;;
+  "gprofng-archive")
+    ;;
+  "gprofng-collect-app")
+    ;;
+  "gprofng-display-html")
+    ;;
+  "gprofng-display-src")
+    ;;
+  "gprofng-display-text")
+   ;;
   *) ;;
 esac
