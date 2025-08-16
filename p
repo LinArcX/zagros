@@ -25,7 +25,7 @@ assembly () {
 }
 
 compile () {
-    cc -Wall -Wextra -pedantic -std=c99 \
+    cc -Wall -Wextra -pedantic -std=c11 \
       -m32 -nostdlib -fno-builtin -fno-exceptions -fno-leading-underscore \
       -c $1 -o $2
 }
@@ -88,7 +88,7 @@ case $selected in
     mkdir -p unit_tests/build
 
     echo ">>> building zagros_test"
-    cc -Wall -Wextra -pedantic -std=c99 -g -O0 -o unit_tests/build/zagros_test unit_tests/*.c src/util/*
+    cc -Wall -Wextra -pedantic -std=c11 -g -O0 -o unit_tests/build/zagros_test unit_tests/*.c src/util/*
     ;;
   "run(tests)")
     echo ">>> running zagros_test"
@@ -156,7 +156,7 @@ case $selected in
     ;;
   "cppcheck")
     rm report/*
-    cppcheck --enable=all --error-exitcode=1 --platform=unix64 --report-type=misra-c-2012 --addon=zag/misra.json -q --xml --xml-version=2 src/util/*.c src/*.c > report/cppcheck.xml 2>&1
+    cppcheck --std=c11 --enable=all --error-exitcode=1 --platform=unix64 --report-type=misra-c-2012 --addon=zag/misra.json -q --xml --xml-version=2 src/util/*.c src/*.c > report/cppcheck.xml 2>&1
     cppcheck-htmlreport --file=report/cppcheck.xml --title="zagros" --report-dir=report --source-dir=.
     #xdg-open report/index.html
     ;;
