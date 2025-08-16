@@ -7,16 +7,22 @@ a simple operating system from scratch.
 - cppcheck
 - as
 - gcc
+- objdump (from: binutils)
 - qemu(or virtualbox or bochs)
 
 # build/run
 ./p
 
 # todo
+- [x] setup objdump.
 - [x] generate docs with doxygen.
 - [x] setup clove-unit library for unit-tests.
-- [ ] setup cppcheck as static analyzer.
+- [x] setup cppcheck as static analyzer.
   - [ ] setup frama-c as static analyzer.
+- [ ] setup valgrind.
+  - [] setup callgrind.
+  - [] setup KCachegrind.
+- [ ] setup strace.
 - [ ] setup CI on github.
   - [ ] build kernel for each commit.
   - [ ] build and run unit-tests for each commit.

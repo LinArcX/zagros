@@ -6,8 +6,8 @@
 #   diff: gitk, meld
 #   memory debugger: valgrind
 #   system call tracer: strace
+#   static analyzer: cppcheck, frama-c, splint 
 #   display info about .obj files: objdump
-#   static code analyzer: cppcheck, frama-c, splint 
 #   docs of c standard librariy: install man-pages-devel and man <method>
 #
 # nvim tips:
@@ -35,7 +35,7 @@ commands=("build(release)" "build(debug)"
   "run(qemu)"  "run(qemu - logs)" "run(bochs)" "run(virtualbox)"
   "clean" "debug"
   "doxygen" "cppcheck" "valgrind" "scc"
-  "strings in binary" "symbols in .obj")
+  "objdump" "strings" "nm")
 selected=$(printf '%s\n' "${commands[@]}" | fzf --header="project:")
 
 case $selected in
@@ -156,19 +156,25 @@ case $selected in
     ;;
   "cppcheck")
     rm report/*
-    cppcheck --std=c11 --enable=all --error-exitcode=1 --platform=unix64 --report-type=misra-c-2012 --addon=zag/misra.json -q --xml --xml-version=2 src/util/*.c src/*.c > report/cppcheck.xml 2>&1
+    cppcheck --std=c11 --enable=all --error-exitcode=1 --platform=unix64 --report-type=misra-c-2012 --addon=zag/misra.json -q --xml --xml-version=2 src/util/*.c src/*.c -I src/util/ > report/cppcheck.xml 2>&1
     cppcheck-htmlreport --file=report/cppcheck.xml --title="zagros" --report-dir=report --source-dir=.
     #xdg-open report/index.html
     ;;
   "valgrind")
-    valgrind --leak-check=yes --show-leak-kinds=all -s -v build/zagros.bin;;
     #valgrind --leak-check=full src/*.cpp ;;
+    valgrind --leak-check=yes --show-leak-kinds=all -s -v build/zagros.bin
+    ;;
   "scc")
     scc -p -a -u -i c,h,md,cpp,c++,hpp,txt,json,s,ld
     ;;
-  "strings in binary")
-    strings ./build/zagros.bin;;
-  "symbols in .obj")
-    nm ./build/zagros.bin;;
+  "objdump")
+    ls build/*.bin build/obj/* | fzf --header=".obj/bin" | xargs objdump -x -d -p -f -a -t -r
+    ;;
+  "strings")
+    strings ./build/zagros.bin
+    ;;
+  "nm")
+    nm ./build/zagros.bin
+    ;;
   *) ;;
 esac
