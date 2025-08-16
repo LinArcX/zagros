@@ -2,6 +2,8 @@ build/*
 garbage/*
 bochslog.txt
 docs/doxygen/*
+report/*
+zag/*
 
 breakpoints.json
 src/breakpoints.json

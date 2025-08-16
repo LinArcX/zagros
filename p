@@ -34,7 +34,7 @@ commands=("build(release)" "build(debug)"
   "build(tests)" "run(tests)" "debug(tests)" "clean(tests)"
   "run(qemu)"  "run(qemu - logs)" "run(bochs)" "run(virtualbox)"
   "clean" "debug"
-  "doxygen" "splint" "valgrind"
+  "doxygen" "cppcheck" "valgrind" "scc"
   "strings in binary" "symbols in .obj")
 selected=$(printf '%s\n' "${commands[@]}" | fzf --header="project:")
 
@@ -154,11 +154,18 @@ case $selected in
   "doxygen")
     doxygen
     ;;
-  "splint")
-    cppcheck --enable=all --platform=unix64 src/*.c;;
+  "cppcheck")
+    rm report/*
+    cppcheck --enable=all --error-exitcode=1 --platform=unix64 --report-type=misra-c-2012 --addon=zag/misra.json -q --xml --xml-version=2 src/util/*.c src/*.c > report/cppcheck.xml 2>&1
+    cppcheck-htmlreport --file=report/cppcheck.xml --title="zagros" --report-dir=report --source-dir=.
+    #xdg-open report/index.html
+    ;;
   "valgrind")
     valgrind --leak-check=yes --show-leak-kinds=all -s -v build/zagros.bin;;
     #valgrind --leak-check=full src/*.cpp ;;
+  "scc")
+    scc -p -a -u -i c,h,md,cpp,c++,hpp,txt,json,s,ld
+    ;;
   "strings in binary")
     strings ./build/zagros.bin;;
   "symbols in .obj")
