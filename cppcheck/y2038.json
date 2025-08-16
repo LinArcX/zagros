@@ -1,0 +1,4 @@
+{
+  "script": "/usr/share/cppcheck/addons/y2038.py",
+  "args": []
+}

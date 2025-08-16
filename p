@@ -151,7 +151,7 @@ case $selected in
     # - The [filename] and [line] are optional.
     # - [error id] may be * to suppress all warnings (for a specified file or files).
     # - [filename] may contain the wildcard characters * or ?.
-    cppcheck --inline-suppr --std=c11 --enable=all --error-exitcode=1 --platform=unix64 --report-type=misra-c-2012 --addon=zag/misra.json -q --xml --xml-version=2 src/util/*.c src/*.c -I src/util/ > report/cppcheck.xml 2>&1
+    cppcheck --addon=zag/misra.json --addon=cppcheck/findcasts.json --addon=cppcheck/misc.json --addon=cppcheck/y2038.json --addon=cppcheck/threadsafety.json --inline-suppr --std=c11 --enable=all --error-exitcode=1 --platform=unix64 --report-type=misra-c-2012 -q --xml --xml-version=2 src/util/*.c src/*.c -I src/util/ > report/cppcheck.xml 2>&1
     cppcheck-htmlreport --file=report/cppcheck.xml --title="zagros" --report-dir=report --source-dir=.
     #xdg-open report/index.html
     ;;

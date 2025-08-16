@@ -1,1 +1,1 @@
-:lua vim.g.ale_c_cppcheck_options =  '--inline-suppr --enable=all --std=c11 --addon=zag/misra.json'
+:lua vim.g.ale_c_cppcheck_options =  '--inline-suppr --enable=all --std=c11 --addon=zag/misra.json --addon=cppcheck/findcasts.json --addon=cppcheck/misc.json --addon=cppcheck/y2038.json --addon=cppcheck/threadsafety.json'

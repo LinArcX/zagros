@@ -1,0 +1,5 @@
+{
+  "script": "/usr/share/cppcheck/addons/threadsafety.py",
+  "args": []
+}
+

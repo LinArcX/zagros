@@ -1,0 +1,4 @@
+{
+  "script": "/usr/share/cppcheck/addons/misc.py",
+  "args": []
+}

@@ -1,0 +1,4 @@
+{
+  "script": "/usr/share/cppcheck/addons/findcasts.py",
+  "args": []
+}
