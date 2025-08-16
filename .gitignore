@@ -1,10 +1,12 @@
 zag/*
 build/*
 report/*
+.cache/*
 garbage/*
 bochslog.txt
 .ccls-cache/*
 docs/doxygen/*
+compile_commands.json
 
 breakpoints.json
 unit_tests/build/*

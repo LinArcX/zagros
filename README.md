@@ -3,6 +3,7 @@ a simple operating system from scratch.
 
 # prerequisites
 - fzf
+- bear
 - doxygen
 - cppcheck
 - as
@@ -19,7 +20,7 @@ a simple operating system from scratch.
 - [x] setup clove-unit library for unit-tests.
 - [x] setup cppcheck as static analyzer.
   - [x] setup ale plugin in neovim.
-  - [ ] setup frama-c as static analyzer.
+  - [x] setup frama-c as static analyzer.
 - [ ] setup valgrind.
   - [] setup callgrind.
   - [] setup KCachegrind.

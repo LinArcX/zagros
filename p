@@ -24,16 +24,17 @@ assembly () {
 }
 
 compile () {
-    #-lGL -ldl
-    cc -Wall -Wextra -pedantic -std=c11 \
-      -m32 -g -O0 -nostdlib -fno-builtin -fno-exceptions -fno-leading-underscore \
-      -c $1 -o $2
+  #-lGL -ldl
+  bear -- cc -Wall -Wextra -pedantic -std=c11 \
+    -m32 -g -O0 -nostdlib -fno-builtin -fno-exceptions -fno-leading-underscore \
+    -c $1 -o $2
 }
 
 commands=("build" "clean"
   "build(tests)" "run(tests)" "debug(tests)" "clean(tests)"
   "run(qemu)"  "run(qemu - logs)" "run(bochs)" "run(virtualbox)"
   "doxygen" "cppcheck" "valgrind" "scc"
+  "frama-c" "frama-c (eva)" "ivette (eva)" "frama-c-gui (eva)"
   "objdump" "strings" "nm")
 selected=$(printf '%s\n' "${commands[@]}" | fzf --header="project:")
 
@@ -161,6 +162,20 @@ case $selected in
     ;;
   "scc")
     scc -p -a -u -i c,h,md,cpp,c++,hpp,txt,json,s,ld
+    ;;
+  "frama-c")
+    r src/breakpoints.json
+    r src/util/breakpoints.json
+    frama-c -json-compilation-database compile_commands.json src/* src/util/*
+    ;;
+  "frama-c (eva)")
+    frama-c -json-compilation-database compile_commands.json src/* src/util/* -eva -eva-precision 11 -main kmain
+    ;;
+  "ivette (eva)")
+    ivette -json-compilation-database compile_commands.json src/* src/util/* -eva -eva-precision 11 -main kmain
+    ;;
+  "frama-c-gui (eva)")
+    frama-c-gui -json-compilation-database compile_commands.json src/* src/util/* -eva -eva-precision 11 -main kmain
     ;;
   "objdump")
     ls build/*.bin build/obj/* | fzf --header="objdump: " | xargs objdump -x -d -p -f -a -t -r
