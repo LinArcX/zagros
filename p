@@ -146,7 +146,12 @@ case $selected in
     ;;
   "cppcheck")
     rm report/*
-    cppcheck --std=c11 --enable=all --error-exitcode=1 --platform=unix64 --report-type=misra-c-2012 --addon=zag/misra.json -q --xml --xml-version=2 src/util/*.c src/*.c -I src/util/ > report/cppcheck.xml 2>&1
+    # --suppressions-list=suppress.txt 
+    # Suppress a specific warning. The format of <spec> is: [error id]:[filename]:[line].
+    # - The [filename] and [line] are optional.
+    # - [error id] may be * to suppress all warnings (for a specified file or files).
+    # - [filename] may contain the wildcard characters * or ?.
+    cppcheck --inline-suppr --std=c11 --enable=all --error-exitcode=1 --platform=unix64 --report-type=misra-c-2012 --addon=zag/misra.json -q --xml --xml-version=2 src/util/*.c src/*.c -I src/util/ > report/cppcheck.xml 2>&1
     cppcheck-htmlreport --file=report/cppcheck.xml --title="zagros" --report-dir=report --source-dir=.
     #xdg-open report/index.html
     ;;

@@ -18,6 +18,7 @@ a simple operating system from scratch.
 - [x] generate docs with doxygen.
 - [x] setup clove-unit library for unit-tests.
 - [x] setup cppcheck as static analyzer.
+  - [x] setup ale plugin in neovim.
   - [ ] setup frama-c as static analyzer.
 - [ ] setup valgrind.
   - [] setup callgrind.

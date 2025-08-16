@@ -1,14 +1,15 @@
+zag/*
 build/*
+report/*
 garbage/*
 bochslog.txt
+.ccls-cache/*
 docs/doxygen/*
-report/*
-zag/*
 
 breakpoints.json
+unit_tests/build/*
 src/breakpoints.json
 unit_tests/breakpoints.json
-unit_tests/build/*
 
 docs/.$how_computer_load_kernel.drawio.bkp
 docs/.$how_computer_loads_kernel.drawio.bkp

@@ -11,6 +11,7 @@
  * @param multiboot_structor 
  * @param magic_number 
  */
+// cppcheck-suppress unusedFunction
 void kmain(void* multiboot_structor, unsigned int magic_number)
 {
   const uint16_t x = 5;
@@ -19,5 +20,5 @@ void kmain(void* multiboot_structor, unsigned int magic_number)
   clearScreen(WHITE_ON_GRAY);
   print(GRAY_ON_BLACK, x, y, "Hello zagros. magic number: 7");
 
-  while(1);
+  while(1) {}
 }
