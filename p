@@ -5,7 +5,6 @@
 # tools:
 #   diff: gitk, meld
 #   memory debugger: valgrind
-#   system call tracer: strace
 #   static analyzer: cppcheck, frama-c, splint 
 #   display info about .obj files: objdump
 #   docs of c standard librariy: install man-pages-devel and man <method>
@@ -25,21 +24,21 @@ assembly () {
 }
 
 compile () {
+    #-lGL -ldl
     cc -Wall -Wextra -pedantic -std=c11 \
-      -m32 -nostdlib -fno-builtin -fno-exceptions -fno-leading-underscore \
+      -m32 -g -O0 -nostdlib -fno-builtin -fno-exceptions -fno-leading-underscore \
       -c $1 -o $2
 }
 
-commands=("build(release)" "build(debug)"
+commands=("build" "clean"
   "build(tests)" "run(tests)" "debug(tests)" "clean(tests)"
   "run(qemu)"  "run(qemu - logs)" "run(bochs)" "run(virtualbox)"
-  "clean" "debug"
   "doxygen" "cppcheck" "valgrind" "scc"
   "objdump" "strings" "nm")
 selected=$(printf '%s\n' "${commands[@]}" | fzf --header="project:")
 
 case $selected in
-  "build(release)")
+  "build")
     echo ">>> creating build/ directory"
     mkdir -p build/obj
 
@@ -77,13 +76,11 @@ case $selected in
     qemu-img create -f raw build/zagros.img 2G
     #rm -rf build/iso
     ;;
-  "build(debug)")
-    echo ">>> creating build/ directory"
-    mkdir -p build
-    echo ">>> building zagros_debug"
-    cc -Wall -Wextra -pedantic -std=c99 -lGL -ldl -g -O0 src/*.c -o build/zagros_debug
+  "clean")
+    echo ">>> cleaning build/ directory"
+    rm -r build/*
     ;;
-   "build(tests)")
+  "build(tests)")
     echo ">>> creating unit_tests/build/ directory"
     mkdir -p unit_tests/build
 
@@ -95,6 +92,7 @@ case $selected in
     ./unit_tests/build/zagros_test
     ;;
   "debug(tests)")
+    # --tui
     gdb ./unit_tests/build/zagros_test
     ;;
   "clean(tests)")
@@ -143,14 +141,6 @@ case $selected in
     echo ">>> running zagros.iso"
     /usr/lib/virtualbox/VirtualBoxVM --startvm zagros &
     ;;
-  "clean")
-    echo ">>> cleaning build/ directory"
-    rm -r build/*
-    ;;
-  "debug")
-    echo ">>> debugging zagros_debug"
-    gdb --tui build/zagros.bin
-    ;;
   "doxygen")
     doxygen
     ;;
@@ -168,13 +158,13 @@ case $selected in
     scc -p -a -u -i c,h,md,cpp,c++,hpp,txt,json,s,ld
     ;;
   "objdump")
-    ls build/*.bin build/obj/* | fzf --header=".obj/bin" | xargs objdump -x -d -p -f -a -t -r
+    ls build/*.bin build/obj/* | fzf --header="objdump: " | xargs objdump -x -d -p -f -a -t -r
     ;;
   "strings")
-    strings ./build/zagros.bin
+    ls build/*.bin build/*.iso build/obj/* | fzf --header="strings: " | xargs strings
     ;;
   "nm")
-    nm ./build/zagros.bin
+    ls build/*.bin build/obj/* | fzf --header="nm: " | xargs nm -l -n --synthetic
     ;;
   *) ;;
 esac

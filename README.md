@@ -22,7 +22,6 @@ a simple operating system from scratch.
 - [ ] setup valgrind.
   - [] setup callgrind.
   - [] setup KCachegrind.
-- [ ] setup strace.
 - [ ] setup CI on github.
   - [ ] build kernel for each commit.
   - [ ] build and run unit-tests for each commit.
