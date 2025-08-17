@@ -8,12 +8,21 @@ a simple operating system from scratch.
 - qemu(or virtualbox or bochs)
 
 ## optional
+- scc
 - fzf
 - doxygen
 - cppcheck
-- objdump (from: binutils)
+- frama-c
+- valgrind
+- binutils:
+  - addr2line
+  - nm
+  - objdump
+  - readelf
+  - size
+  - strings
 
-## libs
+### libs
 - libsanitizer-devel
 - libsanitizer-devel-32bit
 
@@ -41,13 +50,16 @@ a simple operating system from scratch.
 - [x] setup valgrind.
   - [x] setup callgrind.
   - [x] setup KCachegrind.
-- [ ] create github page.
-  - [ ] host doxygen on it.
-  - [ ] have a page to report unit_tests resultes.
-- [ ] setup jenkins on github.
+- [ ] setup jenkins.
+  - [ ] setup jenkins locally.
+  - [ ] setup jenkins on github.
+  - [ ] run doxygen after each commit.
   - [ ] build kernel for each commit. (when only src/* files changes)
   - [ ] build and run unit-tests for each commit. (when only unit_tests/* files changes)
-  - [ ] run doxygen after each commit.
+- [] create github page.
+  - [ ] create a home pages contains: 1. doxygen report 2. unit-test results.
+  - [ ] host doxygen results on it.
+  - [ ] host unit-tests results on it.
 
 ## zagros
 - [ ] strings util.
