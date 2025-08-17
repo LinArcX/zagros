@@ -20,22 +20,47 @@
 #     current buffer: :%s/akoman/zagros/g
 
 assembly () {
-    as --32 -o $2 $1
+    as -g --32 -o $2 $1
 }
 
 compile () {
-  #-lGL -ldl
-  bear -- cc -Wall -Wextra -pedantic -std=c11 \
-    -m32 -g -O0 -nostdlib -fno-builtin -fno-exceptions -fno-leading-underscore \
+  #-lGL -ldl -fsanitize=address -pg
+  bear -- cc -g -O0 -Wall -Wextra -pedantic -std=c11 \
+    -m32 -nostdlib -fno-builtin -fno-exceptions -fno-leading-underscore \
     -c $1 -o $2
 }
 
 commands=("build" "clean"
+  # tests
   "build(tests)" "run(tests)" "debug(tests)" "clean(tests)"
+
+  # run
   "run(qemu)"  "run(qemu - logs)" "run(bochs)" "run(virtualbox)"
-  "doxygen" "cppcheck" "valgrind" "scc"
+
+  # documentation
+  "doxygen" 
+
+  # static analyzer
+  "cppcheck"
   "frama-c" "frama-c (eva)" "ivette (eva)" "frama-c-gui (eva)"
-  "objdump" "strings" "nm")
+
+  # trace/profile
+  "valgrind(memcheck)" "callgrind" "kcachegrind" "cachegrind" "helgrind" "massif" "ms_print" "drd" "dhat" "dhat(cat)" "bbv" "bbv(cat)"
+  "perf"
+
+  # we can't use uftrace, because of so many things:
+  # 1. it just works with dynamically linked binaries. zagros is statically linked. so uftrace can't work with it.
+  # 2. it needs to pass -pg to compiler option, and this requires mcount from clib. but we're building our kernel without libc!
+  # 3. even with -finstrument-functions, our binary is still static. so uftrace can't work!
+  #"uftrace"
+  # manual tracing
+  # #define TRACE_ENTER() do { asm volatile("syscall" : : "a"(1), "D"(1), "S"("Entering " __func__ "\n"), "d"(strlen("Entering " __func__ "\n")) : "rcx", "r11", "memory"); } while(0)  // Raw write syscall// Add TRACE_ENTER() at function starts; similar for exit.
+
+  # binary analyse
+  "ldd" "objdump" "strings" "nm" "readelf" "addr2line" "size" "file"
+
+  # util
+  "scc")
 selected=$(printf '%s\n' "${commands[@]}" | fzf --header="project:")
 
 case $selected in
@@ -54,6 +79,7 @@ case $selected in
     compile "src/util/globals.c" "build/obj/globals.o"
 
     echo ">>> linking .o files into .bin"
+    # -L/usr/lib32 -lasan
     ld -T src/linker.ld -melf_i386 build/obj/*.o -o build/zagros.bin
 
     echo ">>> copying .bin to /boot"
@@ -156,13 +182,6 @@ case $selected in
     cppcheck-htmlreport --file=report/cppcheck.xml --title="zagros" --report-dir=report --source-dir=.
     #xdg-open report/index.html
     ;;
-  "valgrind")
-    #valgrind --leak-check=full src/*.cpp ;;
-    valgrind --leak-check=yes --show-leak-kinds=all -s -v build/zagros.bin
-    ;;
-  "scc")
-    scc -p -a -u -i c,h,md,cpp,c++,hpp,txt,json,s,ld
-    ;;
   "frama-c")
     r src/breakpoints.json
     r src/util/breakpoints.json
@@ -177,22 +196,76 @@ case $selected in
   "frama-c-gui (eva)")
     frama-c-gui -json-compilation-database compile_commands.json src/* src/util/* -eva -eva-precision 11 -main kmain
     ;;
+  "valgrind(memcheck)")
+    valgrind --tool=memcheck --leak-check=full --show-leak-kinds=all --track-origins=yes --xtree-leak=yes -s -v build/zagros.bin
+    ;;
+  "callgrind")
+    valgrind --tool=callgrind --dump-instr=yes --collect-jumps=yes -s -v build/zagros.bin
+    ;;
+  "kcachegrind")
+    ls callgrind.out.* cachegrind.out.* | fzf --header="kcachgrind: " | xargs kcachegrind
+    ;;
+  "cachegrind")
+    valgrind --tool=cachegrind --cache-sim=yes --branch-sim=yes -s -v build/zagros.bin
+    ;;
+  "helgrind")
+    valgrind --tool=helgrind -s -v build/zagros.bin
+    ;;
+  "massif")
+    valgrind --tool=massif -s -v build/zagros.bin
+    ;;
+  "ms_print")
+    ls massif.out.* | fzf --header="ms_print: " | xargs ms_print
+    ;;
+  "drd")
+    valgrind --tool=drd --trace-fork-join=yes --trace-mutex=yes --trace-semaphore=yes -s -v build/zagros.bin
+    ;;
+  "dhat")
+    valgrind --tool=dhat -s -v build/zagros.bin
+    ;;
+  "dhat(cat)")
+    ls dhat.out.* | fzf --header="dhat: " | xargs cat | less
+    ;;
+  "bbv")
+    valgrind --tool=exp-bbv -s -v build/zagros.bin
+    ;;
+  "bbv(cat)")
+    ls bb.out.* | fzf --header="bbv: " | xargs cat | less
+    ;;
+  "perf")
+    ls build/* | fzf --header="perf: " | xargs perf stat -d
+    ;;
+  "lttng")
+    ;;
+  "gprof")
+    ;;
+  "ldd")
+    ls build/*.bin build/obj/* | fzf --header="objdump: " | xargs ldd | less -N
+    ;;
   "objdump")
-    ls build/*.bin build/obj/* | fzf --header="objdump: " | xargs objdump -x -d -p -f -a -t -r
+    ls build/*.bin build/obj/* | fzf --header="objdump: " | xargs objdump -x -d -p -f -a -t -r | less -N
     ;;
   "strings")
-    ls build/*.bin build/*.iso build/obj/* | fzf --header="strings: " | xargs strings
+    ls build/*.bin build/*.iso build/obj/* | fzf --header="strings: " | xargs strings | less -N
     ;;
   "nm")
-    ls build/*.bin build/obj/* | fzf --header="nm: " | xargs nm -l -n --synthetic
+    ls build/*.bin build/obj/* | fzf --header="nm: " | xargs nm -l -n --synthetic | less -N
     ;;
   "readelf")
-    ;;
-  "elfedit")
+    ls build/*.bin build/obj/* | fzf --header="readelf: " | xargs readelf -a -h -g -t -s -d | less -N
     ;;
   "addr2line")
+    file=$(ls build/*.bin build/obj/* | fzf --header="Select ELF file for addr2line")
+    echo "Enter the memory address:"; read -r addr;
+    addr2line -f -a -e $file $addr
     ;;
   "size")
+    ls build/*.bin build/obj/* | fzf --header="size: " | xargs size --common -t -d -A | less -N
+    ;;
+  "file")
+    ls build/*.* build/obj/* | fzf --header="file type: " | xargs file
+    ;;
+  "elfedit")
     ;;
   "strip")
     ;;
@@ -226,5 +299,8 @@ case $selected in
     ;;
   "gprofng-display-text")
    ;;
+  "scc")
+    scc -p -a -u -i c,h,md,cpp,c++,hpp,txt,json,s,ld
+    ;;
   *) ;;
 esac

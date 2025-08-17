@@ -8,6 +8,12 @@ bochslog.txt
 docs/doxygen/*
 compile_commands.json
 
+bb.out.*
+dhat.out.*
+massif.out.*
+cachegrind.out.*
+callgrind.out.*
+
 breakpoints.json
 unit_tests/build/*
 src/breakpoints.json
