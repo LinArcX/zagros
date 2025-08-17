@@ -8,21 +8,46 @@ a simple operating system from scratch.
 - qemu(or virtualbox or bochs)
 
 ## optional
-- scc
-- fzf
+### diff tools
+- gitk
+- meld
+
+### documentation
 - doxygen
+
+### static analyzers
 - cppcheck
 - frama-c
-- valgrind
-- binutils:
-  - addr2line
-  - nm
-  - objdump
-  - readelf
-  - size
-  - strings
+- splint
+
+### code coverage
+- kcov
+
+### memory analyzer
+- valgrind(memcheck)
+- callgrind
+- cachegrind
+- kcachegrind
+- helgrind
+- massif
+
+### utils
+- scc
+- fzf
+- ambr
+- neovim
+
+#### binary utils
+- addr2line
+- nm
+- objdump
+- readelf
+- size
+- strings
 
 ### libs
+- man-pages-devel
+  `man <method>`
 - libsanitizer-devel
 - libsanitizer-devel-32bit
 
@@ -47,9 +72,13 @@ a simple operating system from scratch.
 - [x] setup cppcheck as static-analyzer. (integration with p)
   - [x] setup ale plugin for neovim. (integration with p)
 - [x] setup frama-c as static-analyzer. (integration with p)
-- [x] setup valgrind.
-  - [x] setup callgrind.
-  - [x] setup KCachegrind.
+- [x] setup valgrind. (integration with p)
+  - [x] memcheck.
+  - [x] callgrind.
+  - [x] cachegrind
+  - [x] kcachegrind
+  - [x] helgrind
+  - [x] massif
 - [ ] setup jenkins.
   - [ ] setup jenkins locally.
   - [ ] setup jenkins on github.

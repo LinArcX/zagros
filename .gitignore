@@ -8,6 +8,8 @@ bochslog.txt
 docs/doxygen/*
 compile_commands.json
 
+coverage/*
+
 bb.out.*
 dhat.out.*
 massif.out.*

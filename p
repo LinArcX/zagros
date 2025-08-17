@@ -2,13 +2,6 @@
 #
 # to run this file: ./p
 #
-# tools:
-#   diff: gitk, meld
-#   memory debugger: valgrind
-#   static analyzer: cppcheck, frama-c, splint 
-#   display info about .obj files: objdump
-#   docs of c standard librariy: install man-pages-devel and man <method>
-#
 # nvim tips:
 #   switch between source/header: F2
 #   search files: ctrl-f, alt-f
@@ -24,8 +17,7 @@ assembly () {
 }
 
 compile () {
-  #-lGL -ldl -fsanitize=address -pg
-  bear -- cc -g -O0 -Wall -Wextra -pedantic -std=c11 \
+  bear -- cc -g  -O0 -Wall -Wextra -pedantic -std=c11 \
     -m32 -nostdlib -fno-builtin -fno-exceptions -fno-leading-underscore \
     -c $1 -o $2
 }
@@ -44,17 +36,28 @@ commands=("build" "clean"
   "cppcheck"
   "frama-c" "frama-c (eva)" "ivette (eva)" "frama-c-gui (eva)"
 
+  # code coverate
+  "kcov"
+
+  # we can't use lcov, gcov, gcovr(requires: gcc-multilib) because they need to re-compile zagros with:
+  #   -fprofile-arcs -ftest-coverage --coverage
+  #   linker flags: -L/usr/lib/gcc/x86_64-unknown-linux-gnu/14.2/32/ -lgcov
+  # which is not possible. because there's no libc compiled with zagros. it's statically linked.
+
   # trace/profile
   "valgrind(memcheck)" "callgrind" "kcachegrind" "cachegrind" "helgrind" "massif" "ms_print" "drd" "dhat" "dhat(cat)" "bbv" "bbv(cat)"
   "perf"
 
-  # we can't use uftrace, because of so many things:
-  # 1. it just works with dynamically linked binaries. zagros is statically linked. so uftrace can't work with it.
-  # 2. it needs to pass -pg to compiler option, and this requires mcount from clib. but we're building our kernel without libc!
-  # 3. even with -finstrument-functions, our binary is still static. so uftrace can't work!
-  #"uftrace"
-  # manual tracing
-  # #define TRACE_ENTER() do { asm volatile("syscall" : : "a"(1), "D"(1), "S"("Entering " __func__ "\n"), "d"(strlen("Entering " __func__ "\n")) : "rcx", "r11", "memory"); } while(0)  // Raw write syscall// Add TRACE_ENTER() at function starts; similar for exit.
+  # we can't use libasan as compiler flag. (-fsanitize=address) and as linker flag (-L/usr/lib32 -lasan),
+  # since zagros is statically linked and this flag needs libc compiled with zagros.
+  
+  # we can't use uftrace, because of many reasons:
+  #   1. it just works with dynamically linked binaries. zagros is statically linked, so uftrace can't work with it.
+  #   2. it needs to pass -pg to compiler option, and this requires mcount from clib. but we're building our kernel without libc!
+  #   3. even with -finstrument-functions, our binary is still static. so uftrace can't work!
+
+  # alternative: manual tracing using this macro for each function:
+  #   #define TRACE_ENTER() do { asm volatile("syscall" : : "a"(1), "D"(1), "S"("Entering " __func__ "\n"), "d"(strlen("Entering " __func__ "\n")) : "rcx", "r11", "memory"); } while(0)  // Raw write syscall// Add TRACE_ENTER() at function starts; similar for exit.
 
   # binary analyse
   "ldd" "objdump" "strings" "nm" "readelf" "addr2line" "size" "file"
@@ -71,16 +74,14 @@ case $selected in
     echo ">>> compiling .s files"
     assembly "src/loader.s" "build/obj/loader.o"
 
-    # -lGL -ldl -O3
     echo ">>> compiling .c files"
     compile "src/kernel.c" "build/obj/kernel.o"
     compile "src/util/strings.c" "build/obj/strings.o"
     compile "src/util/video_mmio.c" "build/obj/video_mmio.o"
     compile "src/util/globals.c" "build/obj/globals.o"
 
-    echo ">>> linking .o files into .bin"
-    # -L/usr/lib32 -lasan
-    ld -T src/linker.ld -melf_i386 build/obj/*.o -o build/zagros.bin
+    echo ">>> linking .o files into .bin" 
+    ld -T src/linker.ld -melf_i386 build/obj/*.o -o build/zagros.bin 
 
     echo ">>> copying .bin to /boot"
     sudo cp build/zagros.bin /boot/zagros.bin
@@ -195,6 +196,13 @@ case $selected in
     ;;
   "frama-c-gui (eva)")
     frama-c-gui -json-compilation-database compile_commands.json src/* src/util/* -eva -eva-precision 11 -main kmain
+    ;;
+  "kcov")
+    rm -r coverage/*
+    kcov coverage/ build/zagros.bin
+    # xdg-open coverage/index.html
+    ;;
+  "llvm-cov")
     ;;
   "valgrind(memcheck)")
     valgrind --tool=memcheck --leak-check=full --show-leak-kinds=all --track-origins=yes --xtree-leak=yes -s -v build/zagros.bin
