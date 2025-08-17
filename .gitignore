@@ -9,12 +9,16 @@ docs/doxygen/*
 compile_commands.json
 
 coverage/*
+coverage_test/*
 
 bb.out.*
 dhat.out.*
 massif.out.*
 cachegrind.out.*
 callgrind.out.*
+
+dump.json
+uftrace.data/
 
 breakpoints.json
 unit_tests/build/*

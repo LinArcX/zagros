@@ -38,15 +38,23 @@ commands=("build" "clean"
 
   # code coverate
   "kcov"
+  "kcov(tests)"
 
-  # we can't use lcov, gcov, gcovr(requires: gcc-multilib) because they need to re-compile zagros with:
-  #   -fprofile-arcs -ftest-coverage --coverage
+  # we can't use lcov, gcov, gcovr(requires: gcc-multilib) with zagros, because these tools asks us to re-compile zagros with:
+  #   --coverage -fprofile-arcs -ftest-coverage 
   #   linker flags: -L/usr/lib/gcc/x86_64-unknown-linux-gnu/14.2/32/ -lgcov
   # which is not possible. because there's no libc compiled with zagros. it's statically linked.
+  # but we can use them for zagros_test
 
   # trace/profile
   "valgrind(memcheck)" "callgrind" "kcachegrind" "cachegrind" "helgrind" "massif" "ms_print" "drd" "dhat" "dhat(cat)" "bbv" "bbv(cat)"
   "perf"
+  "lcov(tests)"
+  "gcov(tests)"
+  "gcovr(tests)"
+  "uftrace replay(tests)"
+  "uftrace record(test)"
+  "uftrace dump(test)"
 
   # we can't use libasan as compiler flag. (-fsanitize=address) and as linker flag (-L/usr/lib32 -lasan),
   # since zagros is statically linked and this flag needs libc compiled with zagros.
@@ -113,7 +121,8 @@ case $selected in
     mkdir -p unit_tests/build
 
     echo ">>> building zagros_test"
-    cc -Wall -Wextra -pedantic -std=c11 -g -O0 -o unit_tests/build/zagros_test unit_tests/*.c src/util/*
+    #  -fsanitize=address
+    cc -g -O0 -Wall -Wextra -pedantic -std=c11 --coverage -fprofile-arcs -ftest-coverage -finstrument-functions -o unit_tests/build/zagros_test unit_tests/*.c src/util/*
     ;;
   "run(tests)")
     echo ">>> running zagros_test"
@@ -202,6 +211,10 @@ case $selected in
     kcov coverage/ build/zagros.bin
     # xdg-open coverage/index.html
     ;;
+  "kcov(tests)")
+    rm -r coverage_test/*
+    kcov coverage_test/ unit_tests/build/zagros_test
+    ;;
   "llvm-cov")
     ;;
   "valgrind(memcheck)")
@@ -242,6 +255,24 @@ case $selected in
     ;;
   "perf")
     ls build/* | fzf --header="perf: " | xargs perf stat -d
+    ;;
+  "lcov(tests)")
+    ;;
+  "gcov(tests)")
+    ;;
+  "gcovr(tests)")
+    ;;
+  "uftrace record(test)")
+    uftrace --srcline -a --no-libcall --symbols -F __clove_symint___UtilSuite* record unit_tests/build/zagros_test
+    ;;
+  "uftrace replay(tests)")
+    uftrace replay
+    ;;
+  "uftrace dump(test)")
+    uftrace dump --chrome > dump.json
+    echo "load dump.json in chrome://tracing/"
+    ;;
+  "")
     ;;
   "lttng")
     ;;

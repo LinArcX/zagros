@@ -72,6 +72,8 @@ a simple operating system from scratch.
 - [x] setup cppcheck as static-analyzer. (integration with p)
   - [x] setup ale plugin for neovim. (integration with p)
 - [x] setup frama-c as static-analyzer. (integration with p)
+- [x] setup code coverage. (integration with p)
+  - [x] kcov
 - [x] setup valgrind. (integration with p)
   - [x] memcheck.
   - [x] callgrind.
@@ -85,7 +87,7 @@ a simple operating system from scratch.
   - [ ] run doxygen after each commit.
   - [ ] build kernel for each commit. (when only src/* files changes)
   - [ ] build and run unit-tests for each commit. (when only unit_tests/* files changes)
-- [] create github page.
+- [ ] create github page.
   - [ ] create a home pages contains: 1. doxygen report 2. unit-test results.
   - [ ] host doxygen results on it.
   - [ ] host unit-tests results on it.
