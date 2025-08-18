@@ -16,8 +16,13 @@ assembly () {
     as -g --32 -o $2 $1
 }
 
+compileWithGlibC() {
+  #cc -fprofile-arcs -ftest-coverage -m32 -O0 -Wall -Wextra -pedantic -std=c11 -g -c $1 -o $2
+  cc -c -Wall -Wextra -pedantic -std=c11 --coverage $1 -o $2
+}
+ 
 compile () {
-  bear -- cc -g  -O0 -Wall -Wextra -pedantic -std=c11 \
+  bear -- cc -g -O0 -Wall -Wextra -pedantic -std=c11 \
     -m32 -nostdlib -fno-builtin -fno-exceptions -fno-leading-underscore \
     -c $1 -o $2
 }
@@ -51,10 +56,14 @@ commands=("build" "clean"
   "perf"
   "lcov(tests)"
   "gcov(tests)"
-  "gcovr(tests)"
+  "genhtml(tests)"
   "uftrace replay(tests)"
   "uftrace record(test)"
   "uftrace dump(test)"
+  "uftrace report(test)"
+  "uftrace info(test)"
+  "uftrace graph(test)"
+  "uftrace tui(test)"
 
   # we can't use libasan as compiler flag. (-fsanitize=address) and as linker flag (-L/usr/lib32 -lasan),
   # since zagros is statically linked and this flag needs libc compiled with zagros.
@@ -68,7 +77,7 @@ commands=("build" "clean"
   #   #define TRACE_ENTER() do { asm volatile("syscall" : : "a"(1), "D"(1), "S"("Entering " __func__ "\n"), "d"(strlen("Entering " __func__ "\n")) : "rcx", "r11", "memory"); } while(0)  // Raw write syscall// Add TRACE_ENTER() at function starts; similar for exit.
 
   # binary analyse
-  "ldd" "objdump" "strings" "nm" "readelf" "addr2line" "size" "file"
+  "ldd" "objdump" "strings" "nm" "readelf" "addr2line" "size" "file" "xxd"
 
   # util
   "scc")
@@ -121,8 +130,22 @@ case $selected in
     mkdir -p unit_tests/build
 
     echo ">>> building zagros_test"
-    #  -fsanitize=address
-    cc -g -O0 -Wall -Wextra -pedantic -std=c11 --coverage -fprofile-arcs -ftest-coverage -finstrument-functions -o unit_tests/build/zagros_test unit_tests/*.c src/util/*
+    compileWithGlibC "src/util/globals.c" "unit_tests/build/globals.o"
+    compileWithGlibC "src/util/hex.c" "unit_tests/build/hex.o"
+    compileWithGlibC "src/util/int.c" "unit_tests/build/int.o"
+    compileWithGlibC "src/util/float.c" "unit_tests/build/float.o"
+    compileWithGlibC "src/util/strings.c" "unit_tests/build/strings.o"
+    compileWithGlibC "src/util/logs.c" "unit_tests/build/logs.o"
+    compileWithGlibC "src/util/video_mmio.c" "unit_tests/build/video_mmio.o"
+ 
+    compileWithGlibC "unit_tests/ut_hex.c" "unit_tests/build/ut_hex.o"
+    compileWithGlibC "unit_tests/ut_int.c" "unit_tests/build/ut_int.o"
+    compileWithGlibC "unit_tests/ut_float.c" "unit_tests/build/ut_float.o"
+    compileWithGlibC "unit_tests/ut_strings.c" "unit_tests/build/ut_string.o"
+    compileWithGlibC "unit_tests/ut_logs.c" "unit_tests/build/ut_logs.o"
+    compileWithGlibC "unit_tests/main.c" "unit_tests/build/main.o"
+
+    cc -Wall -Wextra -pedantic -std=c11 --coverage unit_tests/build/*.o -o unit_tests/build/zagros_test
     ;;
   "run(tests)")
     echo ">>> running zagros_test"
@@ -257,13 +280,19 @@ case $selected in
     ls build/* | fzf --header="perf: " | xargs perf stat -d
     ;;
   "lcov(tests)")
+    # https://wiki.cs.jmu.edu/student/gcov/start
+    ./unit_tests/build/zagros_test
+    lcov --capture --directory unit_tests/build/ --output-file unit_tests/build/coverage.info
     ;;
   "gcov(tests)")
+    ls unit_tests/build/*.o | fzf --header="gcov: " | xargs gcov -a -b -c -g -f -m -u --verbose | less
     ;;
-  "gcovr(tests)")
+  "genhtml(tests)")
+    genhtml unit_tests/build/coverage.info --output-directory unit_tests/build/coverage_report
+    # xdg-open unit_test/build/coverage_report/index.html
     ;;
   "uftrace record(test)")
-    uftrace --srcline -a --no-libcall --symbols -F __clove_symint___UtilSuite* record unit_tests/build/zagros_test
+    uftrace --srcline -a --symbols --time --no-libcall --symbols -F __clove_symint___UtilSuite* record unit_tests/build/zagros_test
     ;;
   "uftrace replay(tests)")
     uftrace replay
@@ -272,7 +301,17 @@ case $selected in
     uftrace dump --chrome > dump.json
     echo "load dump.json in chrome://tracing/"
     ;;
-  "")
+  "uftrace report(test)")
+    uftrace report
+    ;;
+  "uftrace info(test)")
+    uftrace info
+    ;;
+  "uftrace graph(test)")
+    uftrace graph
+    ;;
+  "uftrace tui(test)")
+    uftrace tui
     ;;
   "lttng")
     ;;
@@ -303,6 +342,9 @@ case $selected in
     ;;
   "file")
     ls build/*.* build/obj/* | fzf --header="file type: " | xargs file
+    ;;
+  "xxd")
+    ls build/*.bin build/*.iso build/obj/* unit_test/build/*.o | fzf --header="xxd: " | xargs xxd | less
     ;;
   "elfedit")
     ;;

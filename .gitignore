@@ -11,6 +11,9 @@ compile_commands.json
 coverage/*
 coverage_test/*
 
+*.gcov
+unit_tests/*.gcov
+
 bb.out.*
 dhat.out.*
 massif.out.*
