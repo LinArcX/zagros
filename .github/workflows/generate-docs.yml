@@ -32,8 +32,8 @@ jobs:
           
           # docs/doxygen
           # Clear existing content in Repo B (or target folder) and copy new HTML
-          #rm -rf ./doxygen/html/*  # Remove all files in root; adjust if you want to preserve some files or use a subfolder
-          cp -r ../zagros/docs/* ./
+          rm -rf ./doxygen/html/*  # Remove all files in root; adjust if you want to preserve some files or use a subfolder
+          cp -r ../zagros/docs/doxygen/* ./
           
           # Commit and push changes
           git config --global user.name "GitHub Actions"
