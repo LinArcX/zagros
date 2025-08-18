@@ -4,7 +4,7 @@ on:
   push:
     paths:
       - '**.c'  # Trigger only on pushes affecting .c files
-workflow_dispatch:  # Enable manual triggering
+  workflow_dispatch:  # Enable manual triggering
 
 jobs:
   build-and-deploy:
