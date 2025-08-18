@@ -14,7 +14,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Install Doxygen
-        run: sudo apt-get update && sudo apt-get install -y doxygen
+        run: sudo apt-get update && sudo apt-get install -y doxygen graphviz
 
       - name: Generate Documentation
         run: doxygen Doxyfile  # Runs Doxygen; assumes Doxyfile is in the repo root and outputs to 'html/' folder
@@ -28,7 +28,7 @@ jobs:
           
           # Switch to the target branch in zagros.github.io (e.g., main or gh-pages)
           cd ../zagros.github.io
-          git checkout main
+          git checkout master
           
           # docs/doxygen
           # Clear existing content in Repo B (or target folder) and copy new HTML
@@ -40,4 +40,4 @@ jobs:
           git config --global user.email "actions@github.com"
           git add .
           git commit -m "Auto-update documentation from https://github.com/LinArcX/zagros commit ${{ github.sha }}"
-          git push origin main  # Pushes to the main branch; change if using gh-pages
+          git push origin master  # Pushes to the main branch; change if using gh-pages
