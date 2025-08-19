@@ -20,6 +20,7 @@ jobs:
         run: |
           echo ">>> creating unit_tests/build/ directory"
           mkdir -p unit_tests/build
+          chmod +x p
   
           echo ">>> building zagros_test"
           ./p compileCoverage "src/util/globals.c" "unit_tests/build/globals.o"
