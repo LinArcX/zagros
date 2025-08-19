@@ -57,7 +57,7 @@ jobs:
           
           # Clear existing content in zagros.github.io/coverage_report/* (or target folder) and copy new coverage_report/*
           rm -rf ./coverage_report/*
-          cp -r ../zagros/unit_tests/build/coverage_report/* ./
+          cp -r ../zagros/unit_tests/build/coverage_report ./
           
           # Commit and push changes
           git config --global user.name "GitHub Actions"
