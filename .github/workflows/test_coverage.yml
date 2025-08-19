@@ -41,7 +41,7 @@ jobs:
           cc -Wall -Wextra -pedantic -std=c11 --coverage unit_tests/build/*.o -o unit_tests/build/zagros_test
 
           ./unit_tests/build/zagros_test
-          lcov --capture --directory unit_tests/build/ --output-file unit_tests/build/coverage.info
+          lcov --ignore-errors mismatch --capture --directory unit_tests/build/ --output-file unit_tests/build/coverage.info
           genhtml unit_tests/build/coverage.info --output-directory unit_tests/build/coverage_report
 
       - name: Deploy to zagros.github.io
