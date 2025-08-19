@@ -1,0 +1,66 @@
+name: Test Coverage
+
+on:
+  push:
+    paths:
+      - '**.c'  # Trigger only on pushes affecting .c files
+  workflow_dispatch:  # Enable manual triggering
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout zagros
+        uses: actions/checkout@v4
+
+      - name: Install gcc, lcov
+        run: sudo apt-get update && sudo apt-get install -y lcov gcc
+
+      - name: Build Unit-Tests & generate Coverage report
+        run: |
+          echo ">>> creating unit_tests/build/ directory"
+          mkdir -p unit_tests/build
+  
+          echo ">>> building zagros_test"
+          ./p compileCoverage "src/util/globals.c" "unit_tests/build/globals.o"
+          ./p compileCoverage "src/util/hex.c" "unit_tests/build/hex.o"
+          ./p compileCoverage "src/util/int.c" "unit_tests/build/int.o"
+          ./p compileCoverage "src/util/float.c" "unit_tests/build/float.o"
+          ./p compileCoverage "src/util/strings.c" "unit_tests/build/strings.o"
+          ./p compileCoverage "src/util/logs.c" "unit_tests/build/logs.o"
+          ./p compileCoverage "src/util/video_mmio.c" "unit_tests/build/video_mmio.o"
+   
+          ./p compileCoverage "unit_tests/ut_hex.c" "unit_tests/build/ut_hex.o"
+          ./p compileCoverage "unit_tests/ut_int.c" "unit_tests/build/ut_int.o"
+          ./p compileCoverage "unit_tests/ut_float.c" "unit_tests/build/ut_float.o"
+          ./p compileCoverage "unit_tests/ut_strings.c" "unit_tests/build/ut_string.o"
+          ./p compileCoverage "unit_tests/ut_logs.c" "unit_tests/build/ut_logs.o"
+          ./p compileCoverage "unit_tests/main.c" "unit_tests/build/main.o"
+  
+          cc -Wall -Wextra -pedantic -std=c11 --coverage unit_tests/build/*.o -o unit_tests/build/zagros_test
+
+          ./unit_tests/build/zagros_test
+          lcov --capture --directory unit_tests/build/ --output-file unit_tests/build/coverage.info
+          genhtml unit_tests/build/coverage.info --output-directory unit_tests/build/coverage_report
+
+      - name: Deploy to zagros.github.io
+        env:
+          DEPLOY_TOKEN: ${{ secrets.DEPLOY_TOKEN }}
+        run: |
+          # Clone zagros.github.io using the token for authentication
+          git clone https://${DEPLOY_TOKEN}@github.com/LinArcX/zagros.github.io ../zagros.github.io
+          
+          # Switch to the target branch in zagros.github.io
+          cd ../zagros.github.io
+          git checkout master
+          
+          # Clear existing content in zagros.github.io/coverage_report/* (or target folder) and copy new coverage_report/*
+          rm -rf ./coverage_report/*
+          cp -r ../zagros/unit_tests/build/coverage_report/* ./
+          
+          # Commit and push changes
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git add .
+          git commit -m "Auto-update coverage report from https://github.com/LinArcX/zagros commit ${{ github.sha }}"
+          git push origin master
