@@ -1,6 +1,6 @@
 #include "util/globals.h"
 #include "util/video_mmio.h"
-
+ 
 /**
  * @brief This is the entry point of zagros. kmain will call by bootloader.
  * up until this point, the only things in the memory are:
