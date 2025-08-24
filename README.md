@@ -82,15 +82,14 @@ a simple operating system from scratch.
   - [x] helgrind
   - [x] massif
 - [ ] setup github actions.
-  - [x] create workflow to generate docs using doxygen and push them to: https://github.com/LinArcX/zagros.github.io
+  - [x] create workflow to generate docs using doxygen and push them to: https://github.com/LinArcX/zagr.os
   - [ ] run doxygen after each commit.
-  - [ ] build kernel.bin and run lcov/gcov on it and show the results in dedicated page. (when only src/* files changes)
   - [ ] build and run unit-tests for each commit. (when only unit_tests/* files changes)
-- [ ] create github page.
+- [x] create github page.
   - [x] create a home pages contains: 1. doxygen report 2. unit-test results.
   - [x] host doxygen results on it.
-  - [ ] host unit-tests results on it.
-  - [ ] host test coverage results on it.
+  - [x] host unit-tests results on it.
+  - [x] host test coverage results on it.
 
 ## zagros
 - [ ] strings util.

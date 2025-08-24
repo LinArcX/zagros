@@ -44,18 +44,18 @@ jobs:
           lcov --ignore-errors mismatch --capture --directory unit_tests/build/ --output-file unit_tests/build/coverage.info
           genhtml unit_tests/build/coverage.info --output-directory unit_tests/build/coverage_report
 
-      - name: Deploy to zagros.github.io
+      - name: Deploy to zagr.os
         env:
           DEPLOY_TOKEN: ${{ secrets.DEPLOY_TOKEN }}
         run: |
-          # Clone zagros.github.io using the token for authentication
-          git clone https://${DEPLOY_TOKEN}@github.com/LinArcX/zagros.github.io ../zagros.github.io
+          # Clone zagr.os using the token for authentication
+          git clone https://${DEPLOY_TOKEN}@github.com/LinArcX/zagr.os ../zagr.os
           
-          # Switch to the target branch in zagros.github.io
-          cd ../zagros.github.io
+          # Switch to the target branch in zagr.os
+          cd ../zagr.os
           git checkout master
           
-          # Clear existing content in zagros.github.io/coverage_report/* (or target folder) and copy new coverage_report/*
+          # Clear existing content in zagr.os/coverage_report/* (or target folder) and copy new coverage_report/*
           rm -rf ./coverage_report/*
           cp -r ../zagros/unit_tests/build/coverage_report ./
           cp ../zagros/unit_test_output.txt ./

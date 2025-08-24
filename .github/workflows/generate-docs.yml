@@ -19,15 +19,15 @@ jobs:
       - name: Generate Documentation
         run: doxygen Doxyfile  # Runs Doxygen; assumes Doxyfile is in the repo root and outputs to 'html/' folder
 
-      - name: Deploy to zagros.github.io
+      - name: Deploy to zagr.os
         env:
           DEPLOY_TOKEN: ${{ secrets.DEPLOY_TOKEN }}
         run: |
-          # Clone zagros.github.io using the token for authentication
-          git clone https://${DEPLOY_TOKEN}@github.com/LinArcX/zagros.github.io ../zagros.github.io
+          # Clone zagr.os using the token for authentication
+          git clone https://${DEPLOY_TOKEN}@github.com/LinArcX/zagr.os ../zagr.os
           
-          # Switch to the target branch in zagros.github.io (e.g., main or gh-pages)
-          cd ../zagros.github.io
+          # Switch to the target branch in zagr.os (e.g., main or gh-pages)
+          cd ../zagr.os
           git checkout master
           
           # docs/doxygen
